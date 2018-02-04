@@ -1,0 +1,116 @@
+<html>
+<head>
+<script src="/wp-includes/js/jquery/jquery.js?ver=1.11.1" type="text/javascript"></script>
+<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+
+<style>
+
+#mc_embed_signup,
+#mc_embed_signup form {
+	margin-bottom:0;
+}
+
+#mc_embed_signup .mc_field_group{
+	margin-bottom:0;
+	padding-bottom:0;
+}
+#mce-EMAIL,
+#mc_embed_signup .required.email {
+    display:inline-block;
+	border-radius: 6px;
+	color: #000000;
+    font-size: 15px;
+    margin-right: -20px;
+    padding: 6px;
+	width:65%; 	
+}
+#mc-embedded-subscribe,
+#mc_embed_signup input.button,
+#mc_embed_signup button,
+#mc_embed_signup input[type="submit"] {
+	background-color: #43AFC8;
+    background: -moz-linear-gradient(top , #49B7CF 5%, #43AFC8 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#49b7cf), color-stop(100%,#43afc8)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #49b7cf 0%,#43afc8 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #49b7cf 0%,#43afc8 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #49b7cf 0%,#43afc8 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #49b7cf 0%,#43afc8 100%); /* W3C */
+    border:1px solid #369CAA;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: normal;
+	text-shadow:none;
+    padding-bottom: .4em;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: .4em;
+	border-radius: 6px;
+	width:auto;
+	margin-top:-1px;
+	line-height:1em;
+	height:2.3em;
+	
+}
+#mc_embed_signup .indicates-required {
+	display:none;	
+}
+
+#mc_embed_signup #mce-success-response {
+	color:black;
+}
+
+#mc_embed_signup div.response {
+	font-size:.8em;
+	font-weight:normal;
+	width:99%;
+	padding:0;
+}
+</style>
+</head>
+<body>
+
+<!-- Begin MailChimp Signup Form -->
+
+<div id="mc_embed_signup">
+
+<form action="http://lifeway.createsend.com/t/r/s/dujrol/" method="post" id="embedForm" autocomplete="off">
+        <!-- <label for="fieldEmail">Email</label><br />-->
+        <div class="mc-field-group">
+        	<input id="fieldEmail" name="cm-dujrol-dujrol" value="" class="required email" type="email" /><input type="submit" class="button" value="Sign Up"/>
+        </div>
+        <div id="mce-responses" class="clear">
+		<div class="response cm-error" id="mce-error-response" style="display:none"></div>
+		<div class="response cm-success" id="mce-success-response" style="display:none"></div>
+	</div>
+</form>
+</div>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $('#subForm').submit(function (e) {
+            $thisForm = $(this);
+            e.preventDefault();
+            $.getJSON(
+            this.action + "?callback=?",
+            $(this).serialize(),
+            function (data) {
+                if (data.Status === 400) {
+                    //alert("Error: " + data.Message);
+                    // this will be loaded into the response area
+                    $thisForm.find('.cm-error').html(data.Message).show().delay(10000).fadeOut('slow').delay(5000).html('');
+
+                } else { // 200
+                    //alert("Success: " + data.Message);
+                    // this will be loaded into the response area
+                    //message = data.Message; //default response
+                    //message = "Subscription to our list confirmed." ;//custom message
+                    $thisForm.find('.cm-success').html('Thank you. Your subscription to our list is confirmed.').show();
+
+                }
+            });
+        });
+    });
+</script>
+
+</body>

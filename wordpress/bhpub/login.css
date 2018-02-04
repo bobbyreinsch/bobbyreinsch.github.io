@@ -1,0 +1,41 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body.login {
+    background: url(img/bg-green-hdr.png) #96AB57 left top;
+}
+
+#login {
+	padding-top:48px;	
+}
+
+#login form#loginform {
+	background:url(img/bg-fade-top.jpg) left top;		
+}
+	
+#login h1 a { 
+	background-image: url(img/bh-logo-login.png) !important; 
+	height:180px;
+	width: 280px;
+	background-size:auto;
+	}
+	
+#login .button-primary {
+	background-image: linear-gradient(to bottom, #96AB57, #8AA14C);
+    border-bottom-color: #8AA14C;
+    border-left-color: #96AB57;
+    border-right-color: #96AB57;
+    border-top-color: #96AB57;
+    box-shadow:none;
+    text-shadow:none;
+}
+	
+.login #nav a, 
+.login #backtoblog a {
+	color:#dddddd !important;
+	text-shadow:none;
+}
+.login #nav a:hover, 
+.login #backtoblog a:hover {
+	color:white !important;	
+}
