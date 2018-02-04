@@ -1,0 +1,489 @@
+<html><head>
+	
+	<!-- use scrollmagic.io -->
+	<!-- http://wfbiz.dev/wp-content/themes/wfbiz/infographic.html -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/jquery.ScrollMagic.js"></script>
+
+
+	<script>
+		// init controller
+	$(function () {	
+
+	// image sequence for voting
+	var v_img = ["img/image-select-1.png","img/image-select-2.png","img/image-select-3.png"];
+	var obj = {curImg: 0};
+	var voting = TweenMax.to(obj, 0.5, {
+			curImg: v_img.length - 1,
+			roundProps: "curImg",
+			repeat: 0,
+			immediateRender: true,
+			ease: Linear.easeNone,
+			onUpdate: function(){
+				$(".selectbox > img").attr("src",v_img[obj.curImg]);
+			}
+		})
+
+
+	var controller = new ScrollMagic.Controller();
+
+	new ScrollMagic.Scene({triggerElement: ".step1",duration: 180})
+					.setClassToggle(".row-1", "active") // add class toggle
+					.addIndicators() // add indicators (requires plugin)
+					.addTo(controller);
+	new ScrollMagic.Scene({triggerElement: ".step2",duration: 325})
+					.setClassToggle(".row-2, .selectbox", "active") // add class toggle
+					.setTween(voting)
+					.addIndicators() // add indicators (requires plugin)
+					.addTo(controller);
+	new ScrollMagic.Scene({triggerElement: ".step3",duration: 216})
+					.setClassToggle(".row-3", "active") // add class toggle
+					.addIndicators() // add indicators (requires plugin)
+					.addTo(controller);
+	new ScrollMagic.Scene({triggerElement: ".row-4",duration: 180})
+					.setPin(".pictures")
+					.setClassToggle(".row-4", "active") // add class toggle
+					.addIndicators() // add indicators (requires plugin)
+					.addTo(controller);
+	new ScrollMagic.Scene({triggerElement: ".row-4",duration: 420})
+					.setClassToggle(".step4", "active") // add class toggle
+					.addIndicators() // add indicators (requires plugin)
+					.addTo(controller);
+	new ScrollMagic.Scene({triggerElement: ".step5",duration: 0})
+					.setClassToggle(".step5, .glow-6, .imac", "active") // add class toggle
+					.addIndicators() // add indicators (requires plugin)
+					.addTo(controller);
+
+	});
+
+	</script>
+
+</head><body>
+
+<div class="spacer" style="width:100%;height:500px;">&nbsp;</div>
+<div id="showcase-infographic">
+
+	<div class="row-1">
+		<!-- camera, images, glow, step 1 -->
+		<div class="glow glow-1"></div><div class="glow glow-2"></div>
+		<img class="camera" src="img/camera.png" />
+		<div class="imageflow"></div>
+		<div class="step step1"><h4>1</h4><span class="desc">Your showcases bring in a library of authentic user-generated content.</span></div>
+	</div>
+
+	<div class="row-2">
+		<!-- tube, step 2 -->
+		<img class="tube1" src="img/tubes1.png" />
+		<div class="step step2"><h4>2</h4><span class="desc">Your audience can critique the images against attributes you choose.</span></div>
+
+	</div>
+
+	<div class="row-3">
+		<!-- step 3, computer, select-box -->
+		<div class="glow glow-4"></div>
+		<div class="computer"><div class="graph"><img src="img/graph.gif" /></div><div class="lights"><img src="img/anim-screen.gif" /></div></div>
+		<div class="selectbox"><img src="img/image-select-1.png" /></div>
+		<img class="tube2" src="img/tubes2.png" />
+		<div class="step step3"><h4>3</h4><span class="desc">Our software ranks every image and outputs a collection of the top images.</span></div>
+		<img class="tube3" src="img/tubes3.png" />
+
+	</div>
+
+	<div class="row-4">
+		<!-- pictures -->
+		<div class="pictures">
+			<div class="glow glow-5"></div>
+			<img src="img/pictures-mail.png" />
+		</div>
+		
+	</div>
+
+	<div class="row-5">
+		<!-- envelope, imac, step 4, step 5 -->
+		<div class="glow glow-6"></div>
+		<img class="mail" src="img/mail.png" />
+		<img class="tube4" src="img/tubes4.png" />
+		<div class="imac"><img class="screen" src="img/imac-screen.png" /></div>
+		<div class="step step4"><h4>4</h4><span class="desc">You&apos;ll receive a collection of the best, most authentic user-generated photos.</span></div>
+		<div class="step step5"><h4>5</h4><span class="desc">We&apos;ve streamlined royalty licensing so best photos can be yours to use.</span></div>
+		
+	</div>
+
+
+</div>
+
+</body>
+
+<style>
+
+body:after {
+	clear:both;
+	padding-bottom:600px;
+	position:relative;
+	display:block;
+	content:"";
+	width:100%;
+
+}
+
+#showcase-infographic {
+	margin-top:50px;
+	font-family:'rucksack','Helvetica Condensed', Helvetica, sans-serif;
+}
+
+#showcase-infographic .row-1,
+#showcase-infographic .row-2,
+#showcase-infographic .row-3,
+#showcase-infographic .row-4,
+#showcase-infographic .row-5 {
+	position:relative;
+	margin:0;
+	padding:0;
+	width:787px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#showcase-infographic .step {
+	display:flex;
+	align-items:center;
+	max-width:400px;
+}
+
+#showcase-infographic .step > h4 {
+	flex: 0 0 auto;
+  	font-weight: 900;
+  	color: rgba(203, 162, 53, 0.2);
+  	margin:0;
+  	padding:0;
+  	text-align:right;
+  	padding-right:25px;
+  	opacity: .5;
+  	font-size: 170px;
+  	transition:all .5s;
+}
+
+#showcase-infographic .active .step > h4,
+#showcase-infographic .step.active > h4
+ {
+		font-size: 200px;
+		opacity:1;
+	}
+
+#showcase-infographic .step > .desc {
+	flex:1 1 75%;
+	font-size: 16px;
+	line-height: 1.63;
+	letter-spacing: 0.2px;
+	color: #222222;
+	opacity:.5;
+	transition:all .5s;
+
+}
+
+#showcase-infographic .active .step > .desc,
+#showcase-infographic .step.active > .desc
+ {
+		opacity:1;
+	}
+
+#showcase-infographic .row-1 {
+	height:232px;
+}
+
+#showcase-infographic .step.step1 {
+	position:absolute;
+	right:-100px;
+	top:0px;
+}
+
+#showcase-infographic .step.step1 > h4 {
+	padding-right:0px;
+}
+
+#showcase-infographic .glow {
+	background-image:url(img/bg-gold.png);
+	background-size:100% 100%;
+	background-position:center center;
+	background-repeat:no-repeat;
+	height:400px;
+	width:400px;
+	z-index:-1;
+	opacity:0;
+	position:absolute;
+	transition:opacity .88s;
+}
+
+#showcase-infographic .active .glow,
+#showcase-infographic .glow.active
+{
+	opacity:.67;
+}
+
+#showcase-infographic .glow-1 {
+	height:130px;
+	width:150px;
+	top:-44px;
+	left:-5px;
+} 
+
+#showcase-infographic .glow-2 {
+	height:220px;
+	width:220px;
+	top:100px;
+	left:290px;
+} 
+
+
+#showcase-infographic img.camera {
+	width:140px;
+}
+
+
+
+#showcase-infographic .imageflow{
+	background-image:url('img/imageflow.png');
+	background-repeat:no-repeat;
+	background-size:contain;
+	width:360px;
+	height:222px;
+	position:absolute;
+	top:10px;
+	left:150px;
+
+}
+
+#showcase-infographic .row-2 {
+	height:184px;
+}
+
+#showcase-infographic .tube1 {
+	width:600px;
+	position:absolute;
+	left:220px;
+}
+
+
+#showcase-infographic .step.step2 {
+	position:absolute;
+	left:790px;
+	top:-10px;
+	width:320px;
+}
+
+#showcase-infographic .row-3 {
+	height:388px;
+}
+
+#showcase-infographic .glow-4 {
+	left: 150px;
+    top: 40px;
+    width: 500px;
+}
+
+#showcase-infographic .selectbox {
+	position:absolute;
+	top:0;
+	right:-40px;
+	width:180px;
+}
+
+#showcase-infographic .selectbox>img {
+	width:100%;
+}
+
+#showcase-infographic .tube2 {
+	position:absolute;
+	right:-30px;
+	top:247px;
+	width:220px;
+}	
+
+
+
+
+#showcase-infographic .computer {
+	background-image:url('img/computer.png');
+	background-repeat:no-repeat;
+	background-size:contain;
+	height:400px;
+	width:400px;
+	position:absolute;
+	top:0px;
+	left:200px;
+
+}
+#showcase-infographic .computer img {
+	width:100%;
+}
+
+
+#showcase-infographic .computer .graph {
+	position:absolute;
+	left:8.75%;
+	top:55%;
+	width:24.5%;
+	height:22%;
+	background-image:url(img/graph.png);
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+}
+
+#showcase-infographic .computer .graph > img {
+	display:none;
+}
+
+#showcase-infographic .active .computer .graph > img {
+	display:block;
+	width:100%;
+}
+
+#showcase-infographic .computer .lights {
+	position:absolute;
+	left:42.5%;
+	top:52%;
+	width:52.5%;
+	height:16%;
+	background-image:url(img/anim-screen.png);
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+}
+
+#showcase-infographic .computer .lights > img {
+	display:none;
+}
+
+#showcase-infographic .active .computer .lights > img {
+	display:block;
+	width:100%;
+}
+
+#showcase-infographic .tube3 {
+	position:absolute;
+	left:52px;
+	top:272px;
+	width:150px;
+}
+
+#showcase-infographic .step.step3 {
+	position:absolute;
+	left:-220px;
+	top:160px;
+	width:290px;
+}
+
+#showcase-infographic .row-4 {
+	height:250px;
+}
+
+#showcase-infographic .pictures {
+	position:absolute;
+	width:180px;
+	top:0px;
+	left:40px;
+	z-index:100;
+
+}
+
+#showcase-infographic .pictures.glow:before{
+	content:"";
+	display:block;
+	position:absolute;
+	top:-25%;
+	left:-20%;
+	height:200px;
+	width:200px;
+	background-image:url(img/bg-gold.png);
+	background-size:contain;
+	background-repeat:no-repeat;
+}
+
+#showcase-infographic .pictures > img {
+	width:100%;
+	position:relative;
+}
+
+#showcase-infographic .row-5 {
+	height:250px;
+}
+
+#showcase-infographic .glow-5 {
+	height:160px;
+	width:160px;
+	left:-15px;
+	top:0px;
+}
+
+#showcase-infographic .mail {
+	position:absolute;
+	left:50px;
+	top:0;
+	width:120px;
+}
+
+
+#showcase-infographic .tube4 {
+	position:absolute;
+	left:170px;
+	top:18px;
+	width:200px;
+}
+
+
+#showcase-infographic .imac {
+	background-image:url('img/imac.png');
+	background-repeat:no-repeat;
+	background-size:contain;
+	width:220px;
+	height:400px;
+	position:absolute;
+	left:370px;
+	top:-25px;
+}
+
+#showcase-infographic .imac .screen {
+	position:absolute;
+	top:26%;
+	left:10%;
+	width:80%;
+	opacity:0;
+	transition:all .7s;
+}
+
+#showcase-infographic .imac.active .screen {
+	position:absolute;
+	top:23%;
+	left:10%;
+	width:80%;
+	opacity:1;
+}
+
+#showcase-infographic .step.step4 {
+	position:absolute;
+	left:-90px;
+	top:80px;
+	width:350px;
+}
+
+#showcase-infographic .step.step5 {
+	position:absolute;
+	left:520px;
+	top:200px;
+	width:350px;
+}
+
+#showcase-infographic .glow-6 {
+	left:310px;
+	top:-40px;
+	width:340px;
+	height:300px;
+}
+
+
+</style>
+
+</html>

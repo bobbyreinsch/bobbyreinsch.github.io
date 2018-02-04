@@ -1,0 +1,96 @@
+@charset "UTF-8";
+/* CSS Document */
+
+:root {
+  --black: #000000;
+  --black2: #222222;
+  --dk-gray: #3e3f3e;
+  --md-gray: #b2b2b2;
+  --lt-gray: #dedcdc;
+  --blue: #009fdf;
+  --teal: #3abca2;
+  --white: #ffffff;
+}
+
+
+body.login {
+    background: #fafafc;
+}
+
+body:before {
+  content:"";
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  height:100vh;
+  width:100vw;
+  background-image: linear-gradient(10deg, rgba(250,252,252,1) 55.99999%,rgba(0,0,0,0.8) 56%);
+}
+
+#login {
+  position:relative;
+	padding-top:150px;
+  font-family: Avenir, "proxima-nova", "Helvetica", sans-serif;
+}
+
+#login label {
+  color:#222222;
+  color:var(--black2);
+}
+.login #backtoblog a,
+.login #nav a {
+  color:#009fdf;
+  color:var(--blue);
+}
+
+.login #backtoblog a:hover,
+.login #nav a:hover {
+  color:#ff0d02;
+}
+
+#login form#loginform {
+	background: #dedcdc;
+  background: var(--lt-gray);
+  border-radius:11px;
+  box-shadow:none;
+}
+
+#login h1 a {
+	background-image: url(img/Logo_WinningFotos_White.svg) !important; //new blue wf logo
+	height:72px;
+	width: 320px;
+	background-size:contain;
+  margin-bottom:0px;
+  height:40px;
+	}
+
+  .login form .input, .login input[type=text] {
+    background-color:#f2f2f2;
+    color:#2a2a2a;
+    border:none;
+  }
+
+#login .button-primary {
+  	background-image: none;
+    color:white;
+    color:var(--white);
+    font-weight:400;
+    background-color:#009fdf;
+    background-color:var(--blue);
+    border:none;
+    border-radius:30px;
+    padding-left:2em;
+    padding-right:2em;
+    padding-top:.11em;
+    text-transform:uppercase;
+    text-shadow:none;
+    box-shadow:none;
+}
+@media screen and (max-width: 782px){
+  #login .button-primary {
+    padding-left:2em;
+    padding-right:2em;
+  }
+}
+
