@@ -1,0 +1,356 @@
+@charset "UTF-8";
+/* CSS Document */
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+#front-page-3 {	display:none;}
+#custom-map {	display:block;}
+
+#custom-map {
+	margin-top:80px;
+	margin-bottom:10px;	
+}
+
+.map-container {
+	 width:100%;
+	 height:auto;
+}
+
+#map_admin .map-container {
+	width:90%;
+	height:auto;	
+}
+
+
+.map {
+	background: url('map_globe_1.png'); /* default - overwritten if changed in plugin */
+	position:relative;
+	background-size: cover; 
+	background-position:left top;
+	background-repeat:no-repeat;
+	height: 0; 
+	width: 100%;
+	padding-bottom: 52.75%;
+	margin:auto;
+	border-bottom:1px solid #bdbdbd;	
+}
+
+
+.trip {
+font-family: "Ek Mukta",sans-serif;
+position:absolute;
+display:block;
+color: black;
+text-decoration:none;
+}
+
+.trip>label {
+position:absolute;
+font-size:1.3em; 
+font-weight:bold;
+text-transform:uppercase;
+color:black;
+background-color:#5fa9b1;
+display:block;
+padding: 0.15em 0.3em 0.15em;
+line-height:1em;
+left:1em;
+top:-.5em;
+white-space:nowrap;
+cursor:pointer;
+transition: font-size .8s ease;
+}
+
+.trip.left>label {
+left:auto;
+right:1em;	
+}
+
+.trip>span {
+	background-color:#333;
+	border: 1px solid #333;
+    border-radius: 50%;
+    height: 10px;
+	width: 10px;
+    margin: 0;
+    padding: 0;
+	display:block;
+	position:relative;
+	top:0;
+	left:0;
+}
+
+@keyframes city {
+	0% {
+		background-color:#333;
+		border-color:#777;	
+	}
+	50% {
+		background-color:#dedede;
+		border-color:#fff;
+	}
+	100% {
+		background-color:#5fa9b1;
+		border-color:#5fa9b1;
+	}
+	
+}
+@keyframes city-outline {
+		0% {
+		background-color:none;
+		border-color:#777;	
+	}
+	33% {
+		background-color:rgba(255,255,255,0.5);
+		border-color:rgba(255,255,255,0.5);
+	}
+	66% {
+		background-color:rgba(95,169,177,0.7); /* blue #5fa9b1 */
+		border-color:#5fa9b1;
+	}
+	100% {
+		background-color:none;
+		border-color:#5fa9b1;
+	}
+		
+}
+
+.trip>span:before {
+	content:"";
+	border: 1px solid #333;
+	height:16px;
+	width:16px;
+	border-radius:50%;
+	display:block;
+	position:absolute;
+	top:-5px;
+	left:-5px;
+	 margin: 0;
+    padding: 0;
+}
+
+.trip>span:after {
+	content:"";
+	border: 1px solid #444;
+	height:24px;
+	width:24px;
+	border-radius:50%;
+	display:block;
+	position:absolute;
+	top:-9px;
+	left:-9px;
+	 margin: 0;
+    padding: 0;
+}
+
+.trip:hover>span {
+	animation: city .3s ease;
+	background-color:#5fa9b1;
+	border-color:#5fa9b1;
+}
+
+.trip:hover>span:before,
+.trip:hover>span:after {
+	animation:city-outline .3s ease;	
+	border-color:#5fa9b1;
+}
+
+.accessint-large-blue-text {
+	text-align:center;
+	margin:100px auto;
+	background-color:#fff;	
+}
+
+
+
+#map_admin .map {
+	border:1px solid #bdbdbd;	
+}
+
+
+#map_admin .trip>span {
+	height:4px;
+	width:4px;	
+}
+#map_admin .trip > span:before {
+	top:-7px;
+	left:-7px;	
+}
+
+#map_admin .trip > span:after {
+	content:none;	
+}
+
+#map_admin .trip > label {
+	transition:all .2s ease;	
+}
+
+#map_admin .trip:hover > span,
+#map_admin .trip:hover > span:before,
+#map_admin .trip:hover > span:after {
+	animation:none;	
+}
+
+
+#map_admin .trip:hover>label {
+	top:-.62em;
+	background-color:rgba(95,169,177,0.67); 
+	-webkit-box-shadow: 2px 8px 15px -5px rgba(0,0,0,0.60);
+	-moz-box-shadow: 2px 8px 15px -5px rgba(0,0,0,0.60);
+	box-shadow: 2px 8px 15px -5px rgba(0,0,0,0.60);
+}
+
+#map_admin .trip.future > label {
+	background-color:rgba(177,169,95,1);
+}
+
+#map_admin .trip.draft > label{
+	background-color:rgba(177,95,95,1);
+}
+
+
+.map-instructions {
+	font-style:italic;	
+}
+
+.pos {
+	position:absolute;
+	top:-6em;
+	left:-4em;	
+	border:1px solid #444;
+	background:white;
+	font-size:.5em;
+	color:#777;
+	padding:.5em;
+}
+
+
+.locations-list .loc {
+	display:inline-block;
+	font-weight:bold;
+	min-width:11%;	
+}
+
+.locations-list input {
+	width:6em;
+}
+
+.locations-list .status {
+	text-transform:capitalize;
+	color:rgba(95,169,177,0.87); 
+}
+
+
+.locations-list .status.future {
+	color:rgba(177,169,95,0.87);
+}
+
+.locations-list .status.draft {
+	color:rgba(177,95,95,0.87);
+}
+
+.locations-list a {
+	font-size:.75em;
+	color:rgba(95,169,177,0.87); 
+}
+
+.locations-list a:hover {
+	color:(255,255,255,1);
+}
+
+
+@media screen and  (max-width: 848px) {
+
+#custom-map {
+	margin-top:120px;
+}
+
+.trip>label {
+	font-size:.85em;
+	left:12px;
+}
+
+.trip.left>label {
+	left:auto;
+	right:12px;	
+}
+
+.trip>span {
+	    height: 6px;
+		width: 6px;
+}
+
+.trip>span:before {
+	height:10px;
+	width:10px;
+	top:-4px;
+	left:-4px;
+}
+
+.trip>span:after {
+	height:16px;
+	width:16px;
+	top:-7px;
+	left:-7px;
+}
+
+
+#map_admin .trip > span:before {
+	top:-4px;
+	left:-4px;	
+}
+	
+	
+}
+
+@media screen and  (max-width: 654px) {
+	.trip>label {
+	font-size:.61em;
+
+}
+}
+
+@media screen and  (max-width: 450px) {
+#front-page-3 {
+	display:block;	
+}
+
+#custom-map {
+	display:none;
+}
+
+.accessint-large-blue-text {
+	display:none;
+}
+
+
+
+.trip>label {
+	font-size:.72em;
+}
+
+.trip>span:before {
+	border:2px solid #515053;
+	top:-5px;
+	left:-5px;
+}
+
+.trip>span:after {
+	content:"";
+	border: none;
+	height0px;
+	width:0px;
+	top:0px;
+	left:0px;
+}
+	
+	
+}
