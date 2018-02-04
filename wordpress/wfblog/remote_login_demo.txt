@@ -1,0 +1,172 @@
+
+Here's one way to connect WP with the login of another site, without sharing DB access or user tables.
+We want the user to login at the other site, and all Login/Sign Up buttons point there. Once logged in
+there, we want them to have instant access to the blog posts without signing in again at the WP site.
+
+
+The PHP  //-----------------------------/
+
+    This function checks whether the user is already logged into WP, and if the username matches the AJAX
+    input. If successful it will run "wf_get_user", which will either login an already existing WP user
+    with the same username, or it will create a new one using the POST data.
+
+    function wf_check_authentication(){
+       if(!current_user_can('administrator')): // only admins can login through the WP admin
+                                               // all others through main site
+        // get the username from the Ajax post
+        $username = $_POST['username'];
+        if($username):
+          // user is logged in to the main site
+
+          // if user is currently logged in to WP
+          if(is_user_logged_in()){
+            // verify matching usernames
+            $curr_user = wp_get_current_user();
+            if($curr_user->username==$username){
+              //do nothing, we're logged in
+            }else{
+              wp_logout(); // must log out current user, they don't match.
+              $user = wf_get_user($username);
+              wp_set_auth_cookie($user->ID);
+              do_action('wp_login',$user->ID);
+            }
+          }else{
+            // user is not currently logged in to WP, so log them in.
+            $user = wf_get_user($username);
+            //$user = set_current_user($user_id,$username);
+            // this will actually make the user authenticated as soon as the cookie is in the browser
+            wp_set_auth_cookie($user->ID);
+            // the wp_login action is used by a lot of plugins, just decide if you need it
+            do_action('wp_login',$user->ID);
+          }
+        else:
+          //not authorized... logout
+          wf_logout_user();
+        endif;
+      endif;
+
+    }
+
+    "wf_get_user" returns the user object of the logged in user, and can create one if it doesn't
+    already exist. This way, the user admin remains strictly on the main site (with the exception
+    of the admins, although that can be changed).
+
+    function wf_get_user($username){
+      $user_id = username_exists($username);
+      if($user_id>0){
+        // userdata will contain all information about the user
+        $userdata = get_userdata($user_id);
+      }else{
+        // create a new user
+        $newuserdata = array(
+                            'user_email' 	=> $_POST['email'],
+                            'user_login' 	=> $_POST['username'],
+                            'first_name' 	=> $_POST['firstName'],
+                            'last_name' 	=> $_POST['lastName'],
+                            'user_pass'		=> null,
+                            'role' 				=> 'subscriber',
+                          );
+        $new_user_id = wp_insert_user( $newuserdata );
+        $userdata	= get_userdata($new_user_id);
+      }
+      return $userdata;
+    }
+
+
+    Rather than just log someone out, this function also returns a string to the AJAX function
+    depending on login status, and as-is will only log out Subscriber-level users. If an author
+    is logged in, they stay logged in.
+
+    function wf_logout_user(){
+    if(!current_user_can('publish_posts')): //ignore for admins/editors/authors
+      if(is_user_logged_in()){
+        echo "Not Authorized - redirecting...";
+      }else{
+        echo "Not Authorized - log in at https://kodakwinningfotos.com";
+      }
+      wp_logout();
+    endif;
+    }
+
+
+
+    Finally, the functions are made accessible to AJAX for both logged in and logged out users. The JS function name
+    follows "wp_ajax_" or "wp_ajax_nopriv_" as the first argument, and the PHP function name is the second.
+
+    add_action("wp_ajax_authenticate_user", "wf_check_authentication");
+    add_action("wp_ajax_nopriv_authenticate_user", "wf_check_authentication");
+    add_action("wp_ajax_no_user_found", "wf_logout_user");
+    add_action("wp_ajax_nopriv_no_user_found", "wf_logout_user");
+
+
+    "wfAjax" is the javascript object set by wp_localize_script to access WP information from a JS object. Here I'm
+    setting the properties "wfAjax.ajaxurl" and "wfAjax.redirurl" which you'll see in the JS below. It's not a security
+    measure, as those urls will be visible as properties of the object in the inspector, but it gives JS easy access
+    to WP information.
+
+    wp_localize_script( 'site-js', 'wfAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) , 'redirurl' => get_bloginfo('url') ));
+
+
+
+The Javascript //-----------------------/
+
+    receiveMessage collects the login status via JS postMessage - not my choice, but that's what was made available.
+    You can authorize access in many ways, you just need to collect a login status from he external service. For
+    this purpose, if there is data, the changeMenus function is called; otherwise, it logs out the current user
+    (since they're no longer logged in at the main page). I'm skipping this function for admins, so I can admin the
+    WP site without being logged in at the parent site.
+
+
+    function receiveMessage(event) {
+         var authUser = event.data;
+         if(authUser){
+          checkUser(authUser);
+          }else{
+            jQuery.ajax({
+                          type:"post",
+                          url: wfAjax.ajaxurl,
+                          data:{action:"no_user_found"},
+                          success:function(data){
+                            if(data == "Not Authorized - redirecting..."){
+                              window.location.href = wfAjax.redirurl;
+                            }
+                          }
+            });
+          }
+        }
+    window.addEventListener("message", receiveMessage, false);
+    /* postMessage - secure cross-domain JS data sharing, collected from an invisible iframe */
+
+
+  checkUser posts the received data to the WP Ajax url calling the authenticate_user function there, and upon success it
+  adds the token count and profile pic, and changes the body class to the WP logged in class, to match the current login status.
+
+  function checkUser(userObject){
+		if("username" in userObject){
+	    jQuery.ajax({
+	            type:"post",
+	            url: wfAjax.ajaxurl,
+	            data: {
+								action:"authenticate_user",
+	              username:userObject.username,
+	              email:userObject.email,
+	              firstName:userObject.firstName,
+	              lastName:userObject.lastName
+	            },
+	            success:function(data){
+	              if(data){
+	                // add number of tokens
+									if(userObject.token){
+	                  jQuery("#menu-header-nav .btn-tokens>a").html(userObject.token + " Tokens");
+									}else{
+										jQuery("#menu-header-nav .btn-tokens>a").html("<span class=\"plus-icon\">&#43;</span>" + " Tokens");
+									}
+	                // add profile pic
+	                  jQuery("#menu-header-nav .btn-profile>a").css("background-image","url("+ userObject.profileImageURL +")");
+									// show/hide the correct menus
+									jQuery("body").addClass("logged-in").addClass("admin-bar");
+								}
+	            }
+	      });
+	    }
+	  }

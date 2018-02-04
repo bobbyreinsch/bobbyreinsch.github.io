@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body.login {
+    background: #ffb700;
+}
+
+#login {
+	padding-top:90px;
+}
+
+#login label {
+  color:#9b9b9b;
+}
+.login #backtoblog a,
+.login #nav a {
+  color:#2a2a2a;
+}
+
+.login #backtoblog a:hover,
+.login #nav a:hover {
+  color:#ff0d02;
+}
+
+#login form#loginform {
+	background: #2a2a2a;
+  border-radius:11px;
+}
+
+#login h1 a {
+	background-image: url(img/HD-KodakWF-logo.svg) !important;
+	height:72px;
+	width: 320px;
+	background-size:contain;
+	}
+
+  .login form .input, .login input[type=text] {
+    background-color:#2a2a2a;
+    color:#f2f2f2;
+    border:none;
+    border-bottom:1px solid #3a3a3a;
+  }
+
+#login .button-primary {
+  	background-image: none;
+    color:#2a2a2a;
+    font-weight:700;
+    background-color:#ffb700;
+    border-bottom-color: #dd9700;
+    border-left-color: #ffc744;
+    border-right-color: #ffc744;
+    border-top-color: #ffc744;
+    text-shadow:none;
+    box-shadow:none;
+}
